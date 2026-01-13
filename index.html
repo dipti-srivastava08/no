@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>4 Days to Your Birthday 💕</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html, body{
+  height:100%;
+  width:100%;
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+}
+
+/* 🎥 Fullscreen video (mobile first) */
+#bg-video{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  object-fit:cover;
+  z-index:1;
+}
+
+/* 🌸 Soft overlay */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(
+    rgba(255,228,236,0.65),
+    rgba(250, 149, 250, 0.65)
+  );
+  opacity:0;
+  transition:opacity 1.5s ease;
+  z-index:2;
+}
+
+/* 💌 Content */
+.container{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  opacity:0;
+  transform:scale(0.95);
+  transition:all 1.5s ease;
+  z-index:3;
+}
+
+.card{
+  background:rgba(255,255,255,0.85);
+  padding:32px 24px;
+  border-radius:26px;
+  box-shadow:0 18px 40px rgba(0,0,0,0.25);
+  max-width:90%;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:38px;
+  color:#b45a7a;
+}
+
+p{
+  margin-top:14px;
+  font-size:16px;
+  color:#555;
+  line-height:1.5;
+}
+
+/* 👆 Tap hint */
+.tap{
+  position:fixed;
+  bottom:22px;
+  width:100%;
+  text-align:center;
+  font-size:13px;
+  color:white;
+  opacity:0.85;
+  z-index:4;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎥 Video -->
+<video id="bg-video" autoplay muted playsinline preload="auto">
+  <source src="video.mp4" type="video/mp4">
+</video>
+
+<!-- 🎶 Music -->
+<audio id="bg-music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="container" id="content">
+  <div class="card">
+    <h1>4 Days Left to Your Birthday 🎂</h1>
+    <p>
+      Remember!! It's you and only you💕
+    </p>
+  </div>
+</div>
+
+<div class="tap" id="tapText">
+  Tap anywhere 💗
+</div>
+
+<script>
+const video = document.getElementById("bg-video");
+const music = document.getElementById("bg-music");
+const overlay = document.getElementById("overlay");
+const content = document.getElementById("content");
+const tapText = document.getElementById("tapText");
+
+/* Show message when video ends */
+video.addEventListener("ended", () => {
+  overlay.style.opacity = "1";
+  content.style.opacity = "1";
+  content.style.transform = "scale(1)";
+});
+
+/* First user interaction → start music */
+document.body.addEventListener("touchstart", startMusic, { once:true });
+document.body.addEventListener("click", startMusic, { once:true });
+
+function startMusic(){
+  music.play();
+  tapText.style.display = "none";
+}
+</script>
+
+</body>
+</html>
